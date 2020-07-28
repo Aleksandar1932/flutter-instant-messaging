@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "622205473137",
+    "firebase_url": "https://a-im-bd115.firebaseio.com",
+    "project_id": "a-im-bd115",
+    "storage_bucket": "a-im-bd115.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:622205473137:android:7a1defc20caef9c5b3e6d0",
+        "android_client_info": {
+          "package_name": "com.aleksandar.a_im"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "622205473137-26d2ev5li7hh4ohlu5oeupi5rcbjqoiv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMilO4Ad0uEoyifjUMOOJf6NpEf1dHwB0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "622205473137-26d2ev5li7hh4ohlu5oeupi5rcbjqoiv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
