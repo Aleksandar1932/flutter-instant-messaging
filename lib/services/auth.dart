@@ -1,4 +1,5 @@
 import 'package:a_im/models/user.dart';
+import 'package:a_im/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +9,7 @@ class AuthService {
 
   // convert FirebaseUser to User (custom user class)
   User _userFromFireBaseUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
+    return user != null ? User(uid: user.uid, displayName: user.displayName, email: user.email) : null;
   }
 
   // user stream
@@ -48,24 +49,25 @@ class AuthService {
       // add the display info
       UserUpdateInfo updateInfo = UserUpdateInfo();
       updateInfo.displayName = displayName;
-      user.updateProfile(updateInfo);
+      await user.updateProfile(updateInfo);
+      await user.reload();
+      user = await _auth.currentUser();
 
+      DatabaseService().addUserToCollection(user);
       return _userFromFireBaseUser(user);
     } catch (e) {
       print("[signUpWithEmailPasswordAndDisplayName]: $e");
       return null;
     }
-
   }
 
-  Future signInWithEmailAndPassword(String email, String password) async{
-    try{
+  Future signInWithEmailAndPassword(String email, String password) async {
+    try {
       AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
 
       return _userFromFireBaseUser(user);
-    }
-    catch(e){
+    } catch (e) {
       print("[signInWithEmailAndPassword]: $e");
       return null;
     }

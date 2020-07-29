@@ -17,6 +17,12 @@ class MyApp extends StatelessWidget {
       //provide listener for auth change
       value: AuthService().user,
       child: MaterialApp(
+        theme: ThemeData(
+//          primarySwatch: Colors.grey[900],
+        primarySwatch: Colors.pink,
+          scaffoldBackgroundColor: Color(0xFFDCDCDC),
+        ),
+        debugShowCheckedModeBanner: false,
         home: Wrapper(),
       ),
     );

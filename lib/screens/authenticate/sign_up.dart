@@ -30,7 +30,6 @@ class _SignUpState extends State<SignUp> {
         ? Loading()
         : Scaffold(
             appBar: AppBar(
-              backgroundColor: APPBAR_COLOR,
               title: Text('Sign Up'),
               elevation: 0.0,
               actions: <Widget>[
@@ -46,7 +45,6 @@ class _SignUpState extends State<SignUp> {
               ],
             ),
             body: Container(
-              color: BACKGROUND_CONTAINER_COLOR,
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
