@@ -1,9 +1,11 @@
 import 'package:a_im/screens/home/drawer.dart';
+import 'package:a_im/screens/home/search_user.dart';
 import 'package:a_im/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
   final user;
+
   Home({this.user});
 
   @override
@@ -22,11 +24,14 @@ class Home extends StatelessWidget {
       body: Container(
         child: Column(
           children: <Widget>[
+
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => SearchUser()));
+        },
         child: Icon(Icons.add),
       ),
     );
