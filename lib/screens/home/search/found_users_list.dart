@@ -10,8 +10,6 @@ class FoundUsersList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (users.isNotEmpty) {
-      print(users.length);
-
       return ListView.builder(
         shrinkWrap: true,
         // Let the ListView know how many items it needs to build.

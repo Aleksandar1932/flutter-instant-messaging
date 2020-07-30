@@ -16,7 +16,7 @@ class FoundUserTile extends StatelessWidget {
       subtitle: Text(user.email),
       trailing: Icon(Icons.chat),
       onTap: () async {
-        DatabaseService().startNewChatWithUser(user.uid);
+        await DatabaseService().startNewChatWithUser(user);
       },
     );
   }

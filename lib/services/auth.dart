@@ -73,13 +73,17 @@ class AuthService {
     }
   }
 
+  Future<User> getCurrentUser() async {
+    final FirebaseUser user = await _auth.currentUser();
+    return _userFromFireBaseUser(user);
+  }
+
   Future<String> getCurrentUserId() async {
     try {
       final FirebaseUser user = await _auth.currentUser();
 
       print(_userFromFireBaseUser(user).uid.toString());
       return _userFromFireBaseUser(user).uid.toString();
-
     } catch (e) {
       print("error");
     }

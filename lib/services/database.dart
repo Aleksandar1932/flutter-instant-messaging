@@ -3,6 +3,7 @@ import 'package:a_im/services/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
 
 class DatabaseService {
   final String uid;
@@ -36,10 +37,17 @@ class DatabaseService {
     });
   }
 
-  Future startNewChatWithUser(String otherUserId) async{
+//  Future startNewChatWithUser(String otherUserId) async {
+//    return await chatsCollection.add({
+//      "participant1": otherUserId,
+//      "participant2": await AuthService().getCurrentUserId().then((value) => value.toString()),
+//    });
+//  }
+
+  Future startNewChatWithUser(User otherUser) async {
     return await chatsCollection.add({
-      "participant1": otherUserId,
-      "participant2": await AuthService().getCurrentUserId().then((value) => value.toString()),
+      "participant1": otherUser.toJSON(),
+      "participant2": await AuthService().getCurrentUser().then((value) => value.toJSON()),
     });
   }
 }
