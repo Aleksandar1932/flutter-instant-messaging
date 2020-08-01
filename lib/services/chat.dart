@@ -35,6 +35,12 @@ class ChatService {
     });
   }
 
-// TODO: Implement deleteChat method
-
+  // TODO: Implement deleteChat method
+  Future deleteChat(String chatId) async {
+    try {
+      return await chatsCollection.document(chatId).delete();
+    } catch (e) {
+      print("[deleteChat] - $e");
+    }
+  }
 }

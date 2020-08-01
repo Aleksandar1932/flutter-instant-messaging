@@ -1,6 +1,7 @@
 import 'package:a_im/models/chat.dart';
 import 'package:a_im/models/user.dart';
 import 'package:a_im/screens/home/chat/chat_screen.dart';
+import 'package:a_im/services/chat.dart';
 import 'package:a_im/shared/constants.dart';
 import 'package:a_im/shared/loading.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +48,12 @@ class _ChatsListState extends State<ChatsList> {
                 title: Text(User().getOtherUser(chats.elementAt(index).participants).displayName.toString()),
                 subtitle: Text(chats.elementAt(index).id),
                 leading: CircleAvatar(),
-                trailing: Icon(Icons.more_vert),
+                trailing: FlatButton.icon(
+                    onPressed: () async {
+                      await ChatService().deleteChat(chats.elementAt(index).id);
+                    },
+                    icon: Icon(Icons.delete),
+                    label: Text('')),
               ),
             ),
             itemCount: chats.length,

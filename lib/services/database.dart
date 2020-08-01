@@ -53,9 +53,9 @@ class DatabaseService {
       "participantsIDs": [otherUser.uid, await AuthService().getCurrentUser().then((value) => value.uid)],
       "messages": [],
     });
-
-    await addChatToUser(chatsDocumentReference.documentID, otherUser.uid);
-    await addChatToUser(chatsDocumentReference.documentID, currentUser.uid);
+//
+//    await addChatToUser(chatsDocumentReference.documentID, otherUser.uid);
+//    await addChatToUser(chatsDocumentReference.documentID, currentUser.uid);
     return chatsDocumentReference;
   }
 
