@@ -34,9 +34,9 @@ class HomeDrawer extends StatelessWidget {
           Center(
             child: Column(
               children: <Widget>[
-                Text('${user.displayName}',style: TextStyle(fontSize: 18),),
+                Text('${CURRENT_USER.displayName}',style: TextStyle(fontSize: 18),),
                 SizedBox(height: 10,),
-                Text('${user.email}',style: TextStyle(fontSize: 12),),
+                Text('${CURRENT_USER.email}',style: TextStyle(fontSize: 12),),
               ],
             ),
           ),

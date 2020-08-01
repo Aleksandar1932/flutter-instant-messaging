@@ -1,11 +1,16 @@
 import 'package:a_im/models/chat.dart';
 import 'package:a_im/models/user.dart';
-import 'package:a_im/screens/home/search/chat_screen.dart';
+import 'package:a_im/screens/home/chat/chat_screen.dart';
 import 'package:a_im/shared/constants.dart';
 import 'package:a_im/shared/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:a_im/models/chat.dart';
+
+/*
+  List all chats of the given user
+ */
 
 class ChatsList extends StatefulWidget {
   @override
@@ -15,12 +20,19 @@ class ChatsList extends StatefulWidget {
 class _ChatsListState extends State<ChatsList> {
   @override
   Widget build(BuildContext context) {
-    print("Current user ${CURRENT_USER.displayName}");
     final List<Chat> chats = Provider.of<List<Chat>>(context);
-    return chats != null ? Container(
+
+    if (chats == null) {
+      return Loading();
+    }
+
+    if (chats.isEmpty) {
+      return Center(child: Text("You don't have chats. You can start a new chat with any user."));
+    }
+
+    return Container(
       child: Column(
         children: <Widget>[
-//          Text()
           ListView.builder(
             shrinkWrap: true,
             itemBuilder: (context, index) => Container(
@@ -42,6 +54,6 @@ class _ChatsListState extends State<ChatsList> {
           )
         ],
       ),
-    ) : Loading();
+    );
   }
 }

@@ -1,8 +1,8 @@
 import 'package:a_im/models/chat.dart';
 import 'package:a_im/models/user.dart';
-import 'package:a_im/screens/home/chats_list.dart';
+import 'package:a_im/screens/home/chat/chats_list.dart';
 import 'package:a_im/screens/home/drawer.dart';
-import 'package:a_im/screens/home/search_user.dart';
+import 'package:a_im/screens/home/search/search_user.dart';
 import 'package:a_im/services/auth.dart';
 import 'package:a_im/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
