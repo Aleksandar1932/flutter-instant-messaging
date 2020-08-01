@@ -1,3 +1,5 @@
+import 'package:a_im/models/chat.dart';
+import 'package:a_im/models/message.dart';
 import 'package:a_im/models/user.dart';
 import 'package:a_im/services/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,6 +16,20 @@ class DatabaseService {
   final CollectionReference usersCollection = Firestore.instance.collection("users");
   final CollectionReference chatsCollection = Firestore.instance.collection("chats");
 
+  List<Chat> _chatListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents
+        .map((doc) => Chat(
+            id: doc.documentID,
+            participants: [User().fromJSON(doc.data['participants'][0]), User().fromJSON(doc.data['participants'][1])],
+            messages: null))
+        .toList();
+  }
+
+  // streams
+  Stream<List<Chat>> getUserChats(User user) {
+    return chatsCollection.where("participantsIDs", arrayContains: user.uid).snapshots().map(_chatListFromSnapshot);
+  }
+
   // Users collection methods
   Future addUserToCollection(FirebaseUser user) async {
     try {
@@ -29,25 +45,23 @@ class DatabaseService {
         .toList());
   }
 
-  // Chats collection methods
-  Future startNewChatBetweenTwoUsers(String participant1, String participant2) async {
-    return await chatsCollection.add({
-      "participant1": participant1,
-      "participant2": await AuthService().getCurrentUserId().then((value) => value.toString()),
+  Future startNewChatWithUser(User otherUser) async {
+    User currentUser = await AuthService().getCurrentUser();
+
+    DocumentReference chatsDocumentReference = await chatsCollection.add({
+      "participants": [otherUser.toJSON(), await AuthService().getCurrentUser().then((value) => value.toJSON())],
+      "participantsIDs": [otherUser.uid, await AuthService().getCurrentUser().then((value) => value.uid)],
+      "messages": [],
     });
+
+    await addChatToUser(chatsDocumentReference.documentID, otherUser.uid);
+    await addChatToUser(chatsDocumentReference.documentID, currentUser.uid);
+    return chatsDocumentReference;
   }
 
-//  Future startNewChatWithUser(String otherUserId) async {
-//    return await chatsCollection.add({
-//      "participant1": otherUserId,
-//      "participant2": await AuthService().getCurrentUserId().then((value) => value.toString()),
-//    });
-//  }
-
-  Future startNewChatWithUser(User otherUser) async {
-    return await chatsCollection.add({
-      "participant1": otherUser.toJSON(),
-      "participant2": await AuthService().getCurrentUser().then((value) => value.toJSON()),
+  Future addChatToUser(String chatID, String userID) async {
+    return usersCollection.document(userID).updateData({
+      'chats': FieldValue.arrayUnion(['$chatID'])
     });
   }
 }

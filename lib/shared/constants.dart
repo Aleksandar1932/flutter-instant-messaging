@@ -1,8 +1,10 @@
+import 'package:a_im/models/user.dart';
 import 'package:flutter/material.dart';
 
 
 // authenticate
 const int MIN_PASSWORD_LENGTH = 8;
+User CURRENT_USER = null;
 
 const TEXT_INPUT_DECORATION = InputDecoration(
   fillColor: Colors.white,

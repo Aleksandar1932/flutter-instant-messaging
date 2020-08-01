@@ -1,11 +1,13 @@
+import 'package:a_im/models/user.dart';
 import 'package:a_im/screens/home/home.dart';
 import 'package:a_im/shared/constants.dart';
 import 'package:flutter/material.dart';
 
 class HomeDrawer extends StatelessWidget {
   final Function signOut;
+  final User user;
 
-  HomeDrawer({this.signOut});
+  HomeDrawer({this.signOut, this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +22,25 @@ class HomeDrawer extends StatelessWidget {
           DrawerHeader(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: CircleAvatar(child: Text('UserPhoto'), radius: 30,),
+              child: CircleAvatar(
+                child: Text('UserPhoto'),
+                radius: 30,
+              ),
             ),
             decoration: BoxDecoration(
               color: APPBAR_COLOR,
             ),
           ),
+          Center(
+            child: Column(
+              children: <Widget>[
+                Text('${user.displayName}',style: TextStyle(fontSize: 18),),
+                SizedBox(height: 10,),
+                Text('${user.email}',style: TextStyle(fontSize: 12),),
+              ],
+            ),
+          ),
+          SizedBox(height: 20,),
           ListTile(
             leading: Icon(Icons.account_circle),
             title: Text('Account Settings'),
@@ -40,11 +55,10 @@ class HomeDrawer extends StatelessWidget {
             title: Text('Logout'),
             onTap: () {
               // Update the state of the app.
-                signOut();
+              signOut();
               // ...
             },
           ),
-
         ],
       ),
     );
