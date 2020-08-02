@@ -20,7 +20,6 @@ class MessageTile extends StatelessWidget {
     } else {
       isFromCurrentUser = false;
     }
-
     return Container(
       margin: isFromCurrentUser ? EdgeInsets.fromLTRB(100, 5, 10, 5) : EdgeInsets.fromLTRB(10, 5, 100, 5),
       padding: EdgeInsets.all(3),
@@ -39,6 +38,7 @@ class MessageTile extends StatelessWidget {
           Text(
             message.body,
             style: TextStyle(fontSize: 16),
+            textAlign: TextAlign.justify,
           ),
           SizedBox(
             height: 5,

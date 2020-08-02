@@ -2,6 +2,7 @@ import 'package:a_im/models/chat.dart';
 import 'package:a_im/models/message.dart';
 import 'package:a_im/models/user.dart';
 import 'package:a_im/screens/home/chat/chat_messages_list.dart';
+import 'package:a_im/screens/home/chat/message_input.dart';
 import 'package:a_im/services/auth.dart';
 import 'package:a_im/services/chat.dart';
 import 'package:a_im/shared/constants.dart';
@@ -30,11 +31,11 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final _newMessageController = TextEditingController();
-
-  void _sendMessage(String message) async {
-    await ChatService().sendMessageFromOneUserToAnother(message, widget.currentUser, widget.otherUser, widget.chat.id);
-  }
+//  final _newMessageController = TextEditingController();
+//
+//  void _sendMessage(String message) async {
+//    await ChatService().sendMessageFromOneUserToAnother(message, widget.currentUser, widget.otherUser, widget.chat.id);
+//  }
 
   bool typedText = false;
 
@@ -53,54 +54,11 @@ class _ChatScreenState extends State<ChatScreen> {
               fit: FlexFit.tight,
             ),
             Divider(),
-//              ChatMessages(),
-            Column(
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Row(
-                    children: [
-                      Flexible(
-                        child: TextField(
-                          controller: _newMessageController,
-                          onSubmitted: _sendMessage,
-                          onChanged: (text) {
-                            if (text.isNotEmpty) {
-                              setState(() {
-                                typedText = true;
-                              });
-                            } else {
-                              setState(() {
-                                typedText = false;
-                              });
-                            }
-                          },
-                          decoration: InputDecoration.collapsed(hintText: 'Send a message'),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                        child: IconButton(
-                          icon: Icon(Icons.send, color: typedText ? Colors.pink : Colors.grey),
-                          onPressed: typedText
-                              ? () async {
-                                  if (_newMessageController.text.isNotEmpty) {
-                                    _sendMessage(_newMessageController.text);
-                                  }
-                                  _newMessageController.text = '';
-                                  setState(() {
-                                    typedText = false;
-                                  });
-                                }
-                              : null,
-//                    onPressed: () => _handleSubmitted(_textController.text)),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
+            MessageInput(
+              currentUser: widget.currentUser,
+              otherUser: widget.otherUser,
+              chat: widget.chat,
+            )
           ],
         ),
       ),
