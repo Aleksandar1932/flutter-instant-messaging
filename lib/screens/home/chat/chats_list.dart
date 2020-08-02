@@ -36,26 +36,29 @@ class _ChatsListState extends State<ChatsList> {
         children: <Widget>[
           ListView.builder(
             shrinkWrap: true,
-            itemBuilder: (context, index) => Container(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-              decoration: BoxDecoration(color: Colors.grey[100]),
-              child: ListTile(
-                onTap: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => ChatScreen(chat: chats.elementAt(index))));
-                },
-                title: Text(User().getOtherUser(chats.elementAt(index).participants).displayName.toString()),
-                subtitle: Text(chats.elementAt(index).id),
-                leading: CircleAvatar(),
-                trailing: FlatButton.icon(
-                    onPressed: () async {
-                      await ChatService().deleteChat(chats.elementAt(index).id);
-                    },
-                    icon: Icon(Icons.delete),
-                    label: Text('')),
-              ),
-            ),
+            itemBuilder: (context, index) {
+              String lastMessage = "Last message";
+              return Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                decoration: BoxDecoration(color: Colors.grey[100]),
+                child: ListTile(
+                  onTap: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => ChatScreen(chat: chats.elementAt(index))));
+                  },
+                  title: Text(User().getOtherUser(chats.elementAt(index).participants).displayName.toString()),
+                  subtitle: Text(lastMessage),
+                  leading: CircleAvatar(),
+                  trailing: FlatButton.icon(
+                      onPressed: () async {
+                        await ChatService().deleteChat(chats.elementAt(index).id);
+                      },
+                      icon: Icon(Icons.delete),
+                      label: Text('')),
+                ),
+              );
+            },
             itemCount: chats.length,
           )
         ],

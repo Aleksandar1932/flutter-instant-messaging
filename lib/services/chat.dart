@@ -35,12 +35,17 @@ class ChatService {
     });
   }
 
-  // TODO: Implement deleteChat method
+  // Implement deleteChat method
   Future deleteChat(String chatId) async {
     try {
       return await chatsCollection.document(chatId).delete();
     } catch (e) {
       print("[deleteChat] - $e");
     }
+  }
+
+  // Get latest message from given chat
+  Future getLatestChatMessage(String chatId) async {
+    return "Latest message";
   }
 }
